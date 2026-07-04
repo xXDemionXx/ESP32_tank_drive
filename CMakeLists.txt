@@ -1,17 +1,19 @@
 set(srcs
-        "src/main.c"
+        "src/tank_drive.c"
+        "src/kinematics_task.c"
         )
 
-set(includes 
+set(include
         "."
+        "priv_include"
         )
 
-# set(priv_includes
-#         "priv_includes/"
-#         )
+set(priv_include
+        # "priv_include/"
+        )
 
 idf_component_register(SRCS ${srcs}
-                       INCLUDE_DIRS ${includes}
-                    #    PRIV_INCLUDE_DIRS ${priv_includes}
+                       INCLUDE_DIRS ${include}
+                       PRIV_INCLUDE_DIRS ${priv_includes}
                        PRIV_REQUIRES motor_control
                     )
