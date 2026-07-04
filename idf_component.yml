@@ -1,0 +1,4 @@
+dependencies:
+  motor_control:
+    git: https://github.com/xXDemionXx/motor_control
+    path: .
