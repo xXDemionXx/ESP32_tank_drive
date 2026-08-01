@@ -1,5 +1,5 @@
-#ifndef KINEMATICS_TASK_H
-#define KINEMATICS_TASK_H
+#ifndef KINEMATIC_TASK_H
+#define KINEMATIC_TASK_H
 
 // Public definitions
 #define KINEMATICS_TASK_PRIORITY    12
@@ -8,6 +8,6 @@
 
 // Public function prototypes
 
-void kinematics_task(void *p_param);
+void kinematic_task(void *p_param);
 
-#endif  // KINEMATICS_TASK_H
+#endif  // KINEMATIC_TASK_H

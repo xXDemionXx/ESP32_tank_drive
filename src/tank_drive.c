@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "kinematics_task.h"
+#include "kinematic_task.h"
 #include "esp_log.h"
 
 // Private constants
@@ -33,7 +33,7 @@ static struct
 
 void TankDriveInit(move_command_getter getter)
 {
-    if (pdTRUE != xTaskCreate(kinematics_task,
+    if (pdTRUE != xTaskCreate(kinematic_task,
                               KINEMATICS_TASK_NAME,
                               KINEMATICS_TASK_SIZE,
                               (void *)getter,

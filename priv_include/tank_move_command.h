@@ -21,4 +21,4 @@ typedef struct
 
 typedef tank_drive_move_command_t (*move_command_getter)(void);
 
-#endif  // TANK_MOVE_COMMAND_H
+#endif // TANK_MOVE_COMMAND_H
