@@ -8,7 +8,7 @@ typedef struct
 {
     struct
     {
-        char *value_p;
+        char (*getter)(void);
         bool enabled;
     } emergency_stop;
     struct

@@ -45,11 +45,11 @@ void TankDriveSetDeadman(char (*deadman_getter)(void), uint16_t ms_hold_delay, u
     _tank_drive_settings.deadman.enabled = true;
 }
 
-void TankDriveSetEmergencyStop(char *emergency_stop)
+void TankDriveSetEmergencyStop(char (*emergency_stop_getter)(void))
 {
-    if (!emergency_stop)
-        ESP_LOGE(TAG, "NULL emergency stop");
+    if (!emergency_stop_getter)
+        ESP_LOGE(TAG, "NULL emergency stop getter");
 
-    _tank_drive_settings.emergency_stop.value_p = emergency_stop;
+    _tank_drive_settings.emergency_stop.getter = emergency_stop_getter;
     _tank_drive_settings.emergency_stop.enabled = true;
 }

@@ -35,7 +35,16 @@ void kinematic_task(void *p_param)
     //
     for (;;)
     {
-        if (_tank_drive_settings.deadman.enabled == true && get_deadman_state() == false)
+        if (_tank_drive_settings.emergency_stop.enabled == true && _tank_drive_settings.emergency_stop.getter() == 0)
+        {
+            // Turn off the motors
+            motor_set_speed(L_motor, 0);
+            motor_set_speed(R_motor, 0);
+            // Susspend this task
+            ESP_LOGI(TAG, "E-STOP pressed");
+            vTaskSuspend(NULL);
+        }
+        else if (_tank_drive_settings.deadman.enabled == true && get_deadman_state() == false)
         {
             motor_set_speed(L_motor, 0);
             motor_set_speed(R_motor, 0);

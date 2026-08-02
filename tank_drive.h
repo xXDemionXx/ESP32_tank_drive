@@ -36,9 +36,9 @@ void TankDriveSetDeadman(char (*deadman_getter)(void), uint16_t ms_hold_delay, u
  * the tank stops. There is no way of ressuming, the tank must
  * be turned on and off again.
  * 
- * @param emergency_stop Pointer to the variable used as emergency stop.
+ * @param emergency_stop_getter Pointer to the getter function to get the value of the emergency stop.
  */
-void TankDriveSetEmergencyStop(char *emergency_stop);
+void TankDriveSetEmergencyStop(char (*emergency_stop_getter)(void));
 
 #ifdef __cplusplus
 }
