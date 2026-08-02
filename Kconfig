@@ -5,6 +5,13 @@ menu "Tank drive"
         range 0 15
         default 10
     
+    config TANK_DRIVE_TASK_LOOP_PERIOD_MS
+            int "Time between motor speed calculations in ms"
+            range 0 100
+            default 10
+            help
+                Set this percentage as the max PWM of the motor
+    
     menu "Movement"
         config TANK_DRIVE_INVERT_FORWARD_BACKWARD
             bool "Invert forward backward movement"

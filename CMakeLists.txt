@@ -2,6 +2,7 @@ set(srcs
         "src/tank_drive.c"
         "src/kinematic_task.c"
         "src/kinematic_model.c"
+        "src/deadman.c"
         )
 
 set(include

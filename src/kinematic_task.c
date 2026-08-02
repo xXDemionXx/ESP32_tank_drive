@@ -1,14 +1,16 @@
 #include "kinematic_task.h"
+#include "kinematic_model.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "tank_move_command.h"
 #include "motor_control.h"
 #include "drive_hardware_definitions.h"
+#include "deadman.h"
 #include "esp_log.h"
-#include "kinematic_model.h"
+#include "tank_drive_settings.h"
 
 // Private defines
-#define KINEMATIC_TASK_PERIOD_MS 10
+#define KINEMATIC_TASK_PERIOD_MS CONFIG_TANK_DRIVE_TASK_LOOP_PERIOD_MS
 
 // Private constants
 static const char *TAG = "kinematic_task";
@@ -33,22 +35,31 @@ void kinematic_task(void *p_param)
     //
     for (;;)
     {
-        command = getter();
-        kinematic_model(command, &motor_speeds);
-        //
+        if (_tank_drive_settings.deadman.enabled == true && get_deadman_state() == false)
+        {
+            motor_set_speed(L_motor, 0);
+            motor_set_speed(R_motor, 0);
+            vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(KINEMATIC_TASK_PERIOD_MS));
+        }
+        else
+        {
+            command = getter();
+            kinematic_model(command, &motor_speeds);
+            //
 #ifdef CONFIG_TANK_DRIVE_INVERT_FORWARD_BACKWARD
-        motor_speeds.left *= -1;
-        motor_speeds.right *= -1;
+            motor_speeds.left *= -1;
+            motor_speeds.right *= -1;
 #endif
 #ifdef CONFIG_TANK_DRIVE_INVERT_ROTATION
-        // XOR swap variables
-        motor_speeds.left = motor_speeds.left ^ motor_speeds.right;
-        motor_speeds.right = motor_speeds.left ^ motor_speeds.right;
-        motor_speeds.left = motor_speeds.left ^ motor_speeds.right;
+            // XOR swap variables
+            motor_speeds.left = motor_speeds.left ^ motor_speeds.right;
+            motor_speeds.right = motor_speeds.left ^ motor_speeds.right;
+            motor_speeds.left = motor_speeds.left ^ motor_speeds.right;
 #endif
-        //
-        motor_set_speed(L_motor, motor_speeds.left);
-        motor_set_speed(R_motor, motor_speeds.right);
-        vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(KINEMATIC_TASK_PERIOD_MS));
+            //
+            motor_set_speed(L_motor, motor_speeds.left);
+            motor_set_speed(R_motor, motor_speeds.right);
+            vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(KINEMATIC_TASK_PERIOD_MS));
+        }
     }
 }

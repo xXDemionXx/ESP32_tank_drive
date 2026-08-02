@@ -4,6 +4,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "kinematic_task.h"
+#include "tank_drive_settings.h"
 #include "esp_log.h"
 
 // Private constants
@@ -12,20 +13,7 @@ static const char *TAG = "tank_drive";
 
 // Private variables
 
-static struct
-{
-    struct
-    {
-        char *value_p;
-        bool enabled;
-    } emergency_stop;
-    struct
-    {
-        uint16_t milliseconds_delay;
-        char *value_p;
-        bool enabled;
-    } deadman;
-} tank_drive_settings;
+tank_drive_settings_t _tank_drive_settings;
 
 // Private function prototypes
 
@@ -37,8 +25,8 @@ void TankDriveInit(move_command_getter getter)
                               KINEMATICS_TASK_NAME,
                               KINEMATICS_TASK_SIZE,
                               (void *)getter,
-                            //   getter,
-                            //   NULL,
+                              //   getter,
+                              //   NULL,
                               KINEMATICS_TASK_PRIORITY,
                               NULL))
     {
@@ -46,21 +34,22 @@ void TankDriveInit(move_command_getter getter)
     }
 }
 
-void TankDriveSetDeadman(char *deadman, const uint16_t milliseconds_delay)
+void TankDriveSetDeadman(char (*deadman_getter)(void), uint16_t ms_hold_delay, uint16_t ms_release_delay)
 {
-    if(!deadman)
-        ESP_LOGE(TAG, "NULL deadman");
+    if (!deadman_getter)
+        ESP_LOGE(TAG, "NULL deadman getter");
 
-    tank_drive_settings.deadman.value_p = deadman;
-    tank_drive_settings.deadman.milliseconds_delay = milliseconds_delay;
-    tank_drive_settings.deadman.enabled = true;
+    _tank_drive_settings.deadman.getter = deadman_getter;
+    _tank_drive_settings.deadman.ms_hold_delay = ms_hold_delay;
+    _tank_drive_settings.deadman.ms_release_delay = ms_release_delay;
+    _tank_drive_settings.deadman.enabled = true;
 }
 
 void TankDriveSetEmergencyStop(char *emergency_stop)
 {
-    if(!emergency_stop)
+    if (!emergency_stop)
         ESP_LOGE(TAG, "NULL emergency stop");
 
-    tank_drive_settings.emergency_stop.value_p = emergency_stop;
-    tank_drive_settings.emergency_stop.enabled = true;
+    _tank_drive_settings.emergency_stop.value_p = emergency_stop;
+    _tank_drive_settings.emergency_stop.enabled = true;
 }

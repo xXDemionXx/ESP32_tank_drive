@@ -15,16 +15,19 @@ void TankDriveInit(move_command_getter);
 /**
  * @brief Set up deadman trigger feature.
  * 
- * Set the pointer to the variable that will be used as the deadman trigger.
+ * Set the function that will be used for getting the value of the deadman trigger.
  * The deadman is considdered pressed if it's value isn't 0. After the deadmans
- * value is zero for milliseconds_delay time the tank drive will stop it's movement.
+ * value is zero for ms_release_delay time the tank drive will stop it's movement.
  * Tank drive will resume it's movements once the deadman is held again for 
- * milliseconds_delay time.
+ * ms_hold_delay time.
  * 
- * @param deadman Pointer to the variable used as deadman.
- * @param milliseconds_delay Delay between the deadman being released and the tank stopping.
+ * @param deadman_getter Pointer to the function used for getting the deadman's value.
+ * @param ms_hold_delay Minimum time that the deadman needs to be pressed to be considered held.
+ * @param ms_release_delay Minimum time that the deadman needs to be unpressed to be considered released.
+ * @note Due to the way deadman was implemented, exact hold and release times can't be specified.
+ *       It deppends on the kinematic task period, so the delays are minimum times.
  */
-void TankDriveSetDeadman(char *deadman, const uint16_t milliseconds_delay);
+void TankDriveSetDeadman(char (*deadman_getter)(void), uint16_t ms_hold_delay, uint16_t ms_release_delay);
 
 /**
  * @brief Set up emergency stop feature.
