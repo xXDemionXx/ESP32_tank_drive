@@ -17,5 +17,6 @@ set(priv_include
 idf_component_register(SRCS ${srcs}
                        INCLUDE_DIRS ${include}
                        PRIV_INCLUDE_DIRS ${priv_includes}
+                       REQUIRES tank_drive_move_command
                        PRIV_REQUIRES motor_control
                     )

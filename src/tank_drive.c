@@ -25,8 +25,6 @@ void TankDriveInit(move_command_getter getter)
                               KINEMATICS_TASK_NAME,
                               KINEMATICS_TASK_SIZE,
                               (void *)getter,
-                              //   getter,
-                              //   NULL,
                               KINEMATICS_TASK_PRIORITY,
                               NULL))
     {
