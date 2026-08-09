@@ -6,7 +6,7 @@
 #ifndef KINEMATIC_MODEL_H
 #define KINEMATIC_MODEL_H
 
-#include "tank_move_command.h"
+#include "tank_drive_move_command.h"
 #include <stdint.h>
 
 /**

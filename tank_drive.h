@@ -6,11 +6,11 @@ extern "C" {
 #endif
 
 #include <stdint.h>
-#include "tank_move_command.h"
+#include "tank_drive_move_command.h"
 
 // Public functions
 
-void TankDriveInit(move_command_getter);
+void TankDriveInit(tank_drive_move_command_getter getter);
 
 /**
  * @brief Set up deadman trigger feature.

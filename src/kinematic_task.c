@@ -2,7 +2,7 @@
 #include "kinematic_model.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "tank_move_command.h"
+#include "tank_drive_move_command.h"
 #include "motor_control.h"
 #include "drive_hardware_definitions.h"
 #include "deadman.h"
@@ -18,7 +18,7 @@ static const char *TAG = "kinematic_task";
 // Public functions
 void kinematic_task(void *p_param)
 {
-    move_command_getter getter = (move_command_getter)p_param;
+    tank_drive_move_command_getter getter = (tank_drive_move_command_getter)p_param;
     tank_drive_move_command_t command = {};
     tank_drive_motor_speeds_t motor_speeds;
     motor_handle_t L_motor = motor_init(L_IN_A_PIN, L_IN_B_PIN, L_MODE_PIN, L_SLEEP_PIN);

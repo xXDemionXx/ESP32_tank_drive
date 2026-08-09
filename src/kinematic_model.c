@@ -37,17 +37,7 @@ void kinematic_model(tank_drive_move_command_t in, tank_drive_motor_speeds_t *sp
                 R_speed_range *= -1;
         }
         //
-        //
-        //
-        if (in.T >= 0.0f) // Forwards direction
-        {
-            speeds->left = T_middle_speed + R_speed_range / 2;
-            speeds->right = T_middle_speed - R_speed_range / 2;
-        }
-        else // Backwards direction
-        {
-            speeds->left = T_middle_speed + R_speed_range / 2;
-            speeds->right = T_middle_speed - R_speed_range / 2;
-        }
+        speeds->left = T_middle_speed + R_speed_range / 2;
+        speeds->right = T_middle_speed - R_speed_range / 2;
     }
 }

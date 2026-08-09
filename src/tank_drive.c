@@ -15,12 +15,14 @@ static const char *TAG = "tank_drive";
 
 tank_drive_settings_t _tank_drive_settings;
 
-// Private function prototypes
-
 // Public functions
 
-void TankDriveInit(move_command_getter getter)
+void TankDriveInit(tank_drive_move_command_getter getter)
 {
+    static bool init_already_completed = false;
+    if (init_already_completed == true) // Do not allow for multiple init calls
+        ESP_LOGE(TAG, "Multiple calls for init");
+    //
     if (pdTRUE != xTaskCreate(kinematic_task,
                               KINEMATICS_TASK_NAME,
                               KINEMATICS_TASK_SIZE,
@@ -29,6 +31,10 @@ void TankDriveInit(move_command_getter getter)
                               NULL))
     {
         ESP_LOGE(TAG, "init failed");
+    }
+    else
+    {
+        init_already_completed = true;
     }
 }
 
