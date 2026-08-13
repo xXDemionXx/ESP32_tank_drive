@@ -10,6 +10,15 @@ extern "C" {
 
 // Public functions
 
+/**
+ * @brief Initializes the tank drive.
+ * 
+ * @param getter The getter function that when called returns 
+ *               the tank_move_command_t from the controller.
+ * @note It is safe to call other tank drive functions before 
+ *       this one, but tank drive will be inactive until this 
+ *       function is called.
+ */
 void TankDriveInit(tank_drive_move_command_getter getter);
 
 /**

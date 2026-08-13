@@ -1,3 +1,8 @@
+/**
+ * This file contains the implementation of the kinetic model 
+ * that is called in every kinematics task loop and it returns
+ * the speeds of the motors.
+ */
 #include "kinematic_model.h"
 #include <stdlib.h>
 

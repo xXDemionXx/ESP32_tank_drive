@@ -3,7 +3,7 @@ menu "Tank drive"
     config TANK_DRIVE_TASK_PRIORITY
         int "Tank drive task priority"
         range 0 15
-        default 10
+        default 12
     
     config TANK_DRIVE_TASK_LOOP_PERIOD_MS
             int "Time between motor speed calculations in ms"

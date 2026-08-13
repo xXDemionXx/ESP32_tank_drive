@@ -1,9 +1,7 @@
 #ifndef DRIVE_HARDWARE_DEFINITIONS_H
 #define DRIVE_HARDWARE_DEFINITIONS_H
 
-#include "driver/gpio.h"
-
-// Motor drivers
+#include "sdkconfig.h"
 
 // Left motor
 
