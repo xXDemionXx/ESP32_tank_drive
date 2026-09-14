@@ -41,9 +41,8 @@ void TankDriveSetDeadman(char (*deadman_getter)(void), uint16_t ms_hold_delay, u
 /**
  * @brief Set up emergency stop feature.
  * 
- * If the emergency stop value becomes anything but 0,
- * the tank stops. There is no way of ressuming, the tank must
- * be turned on and off again.
+ * If the emergency stop value becomes 0 the tank stops. 
+ * There is no way of ressuming, the tank must be turned on and off again.
  * 
  * @param emergency_stop_getter Pointer to the getter function to get the value of the emergency stop.
  */

@@ -26,7 +26,7 @@ void kinematic_model(tank_drive_move_command_t in, tank_drive_motor_speeds_t *sp
         //
         if (T_middle_speed + R_abs_delta_half > MAX_SPEED)
         {
-            // Limit translational speed when otherwise the rotation would't be possible
+            // Limit translational speed when other wise the rotation would't be possible
             T_middle_speed = MAX_SPEED - R_abs_delta_half;
         }
         else if (T_middle_speed - R_abs_delta_half < -MAX_SPEED)
@@ -36,7 +36,7 @@ void kinematic_model(tank_drive_move_command_t in, tank_drive_motor_speeds_t *sp
         }
         else if (abs(T_middle_speed) - R_abs_delta_half < 0)
         {
-            // Limoit rotation when there isn't enough translational speed
+            // Limit rotation when there isn't enough translational speed
             R_speed_range = abs(T_middle_speed) * 2;
             if (in.R < 0)
                 R_speed_range *= -1;

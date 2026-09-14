@@ -20,8 +20,11 @@ tank_drive_settings_t _tank_drive_settings;
 void TankDriveInit(tank_drive_move_command_getter getter)
 {
     static bool init_already_completed = false;
-    if (init_already_completed == true) // Do not allow for multiple init calls
+    if (init_already_completed == true)
+    { // Do not allow for multiple init calls
         ESP_LOGE(TAG, "Multiple calls for init");
+        return;
+    }
     //
     if (pdTRUE != xTaskCreate(kinematic_task,
                               KINEMATICS_TASK_NAME,
