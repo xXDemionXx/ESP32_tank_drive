@@ -1,4 +1,8 @@
 dependencies:
   motor_control:
-    git: https://github.com/xXDemionXx/motor_control
+    git: https://github.com/xXDemionXx/motor_control.git
+    path: .
+  
+  tank_drive_move_command:
+    git: https://github.com/xXDemionXx/tank_drive_move_command
     path: .

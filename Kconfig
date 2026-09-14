@@ -1,0 +1,137 @@
+menu "Tank drive"
+
+    config TANK_DRIVE_TASK_PRIORITY
+        int "Tank drive task priority"
+        range 0 15
+        default 12
+    
+    config TANK_DRIVE_TASK_LOOP_PERIOD_MS
+            int "Time between motor speed calculations in ms"
+            range 0 100
+            default 10
+            help
+                Set this percentage as the max PWM of the motor
+    
+    menu "Movement"
+        config TANK_DRIVE_INVERT_FORWARD_BACKWARD
+            bool "Invert forward backward movement"
+            default false
+            help
+                By default T positive = foward, T negative = backwards
+        
+        config TANK_DRIVE_INVERT_ROTATION
+            bool "Invert rotational movement"
+            default false
+            help
+                By default R positive = counter clockwise, R negative = clockwise
+    endmenu
+
+    menu "Left motor"
+        config TANK_DRIVE_LEFT_MOTOR_INVERT
+            bool "Invert the direction of the left motor"
+            default n
+
+        comment "The control range from input (0 - 100%) will be mapped to: Min - Max PWM%"
+        config TANK_DRIVE_LEFT_MOTOR_MIN_PERCENTAGE
+            int "Min PWM percentage"
+            range 0 100
+            default 0
+            help
+                Some motors won't start turning until they hit a certain percentage 
+                of power provided through PWM. Set this percentage as the tipping point,
+                like minimum percentage after which the motor will start moving.
+
+        config TANK_DRIVE_LEFT_MOTOR_MAX_PERCENTAGE
+            int "Max allowable PWM percentage"
+            range 0 100
+            default 100
+            help
+                Set this percentage as the max PWM of the motor
+
+        comment "Motor driver GPIO pins"
+
+        config TANK_DRIVE_LEFT_MOTOR_IN_A_PIN
+            int "IN_A GPIO"
+            range 0 48
+            default 12
+            help
+                GPIO connected to the motor driver's IN_A pin.
+
+        config TANK_DRIVE_LEFT_MOTOR_IN_B_PIN
+            int "IN_B GPIO"
+            range 0 48
+            default 14
+            help
+                GPIO connected to the motor driver's IN_B pin.
+
+        config TANK_DRIVE_LEFT_MOTOR_MODE_PIN
+            int "MODE GPIO"
+            range 0 48
+            default 27
+            help
+                GPIO connected to the motor driver's MODE pin.
+
+        config TANK_DRIVE_LEFT_MOTOR_SLEEP_PIN
+            int "SLEEP GPIO"
+            range 0 48
+            default 26
+            help
+                GPIO connected to the motor driver's SLEEP pin.
+        
+    endmenu
+
+    menu "Right motor"
+        config TANK_DRIVE_RIGHT_MOTOR_INVERT
+            bool "Invert the direction of the right motor"
+            default n
+
+        comment "The control range from input (0 - 100%) will be mapped to: Min - Max PWM%"
+        config TANK_DRIVE_RIGHT_MOTOR_MIN_PERCENTAGE
+            int "Min PWM percentage"
+            range 0 100
+            default 0
+            help
+                Some motors won't start turning until they hit a certain percentage 
+                of power provided through PWM. Set this percentage as the tipping point,
+                like minimum percentage after which the motor will start moving.
+                
+        config TANK_DRIVE_RIGHT_MOTOR_MAX_PERCENTAGE
+            int "Max allowable PWM percentage"
+            range 0 100
+            default 100
+            help
+                Set this percentage as the max PWM of the motor
+
+         comment "Motor driver GPIO pins"
+
+        config TANK_DRIVE_RIGHT_MOTOR_IN_A_PIN
+            int "IN_A GPIO"
+            range 0 48
+            default 18
+            help
+                GPIO connected to the motor driver's IN_A pin.
+
+        config TANK_DRIVE_RIGHT_MOTOR_IN_B_PIN
+            int "IN_B GPIO"
+            range 0 48
+            default 5
+            help
+                GPIO connected to the motor driver's IN_B pin.
+
+        config TANK_DRIVE_RIGHT_MOTOR_MODE_PIN
+            int "MODE GPIO"
+            range 0 48
+            default 21
+            help
+                GPIO connected to the motor driver's MODE pin.
+
+        config TANK_DRIVE_RIGHT_MOTOR_SLEEP_PIN
+            int "SLEEP GPIO"
+            range 0 48
+            default 19
+            help
+                GPIO connected to the motor driver's SLEEP pin.
+            
+    endmenu
+
+endmenu
